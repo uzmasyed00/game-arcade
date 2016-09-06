@@ -15,10 +15,6 @@ var Enemy = function(x,y, speed) {
 // Update the enemy's position, required method for game
 // Parameter: dt, a time delta between ticks
 Enemy.prototype.update = function(dt) {
-    // You should multiply any movement by the dt parameter
-    // which will ensure the game runs at the same speed for
-    // all computers.
-    //speed = distance travelled /time
     this.x = this.x + (this.speed * dt);
 };
 
@@ -34,43 +30,72 @@ Enemy.prototype.render = function() {
 
 // Now instantiate your objects.
 // Place all enemy objects in an array called allEnemies
-var enemey1 = new Enemy(0,0, 25)
+var enemy1 = new Enemy(0,0, 25)
 var enemy2 = new Enemy(50,100, 2)
-//var enemey2 = new Enemy()
-var allEnemies = [enemey1, enemy2]
-
-//question - How many enemies do we need?
-// Place the player object in a variable called player
-
+var allEnemies = [enemy1, enemy2]
 
 var Player = function(){
     this.sprite = 'images/char-boy.png';
-    this.x = 200;
-    this.y=400;
-   // this.speed = 50
+    this.x = 50;
+    this.y=100;
 }
 
 Player.prototype.render = function() {
-    console.log ("I am in player render");
     ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
 };
 
 Player.prototype.handleInput = function(keyCode){
-console.log("I am in Player_handle_input")
+        if (keyCode == 'up')
+        {
+            if(this.y ==0){
+                this.x =200;
+                this.y = 400;
+            }
+            if(this.y <= -100)
+            {
+                this.y = this.y;
+            }
+            else{
+            this.y = this.y - 100;
+            }
+
+        }
+
+        if (keyCode == 'down')
+        {
+            if(this.y >= 400){
+                this.y = this.y;
+            }
+            else{
+             this.y = this.y + 100;
+            }
+
+        }
+
+        if (keyCode == 'right')
+        {
+            if(this.x >= 400){
+                this.x = this.x;
+            }
+            else{
+            this.x = this.x + 50;
+            }
+        }
+
+        if (keyCode == 'left')
+        {
+           if(this.x <=0){
+                this.x = this.x;
+            }
+            else{
+            this.x = this.x - 50;
+            }
+        }
 }
 
-Player.prototype.update = function(dt) {
-    // You should multiply any movement by the dt parameter
-    // which will ensure the game runs at the same speed for
-    // all computers.
-    //speed = distance travelled /time
-    console.log("I am in player update")
-    //this.y = (this.y + (this.speed * dt));
-    console.log(this.y)
-    console.log(this.speed)
-    console.log(this.x)
-    console.log(dt)
+Player.prototype.update = function(x, y) {
 };
+
 
 
 var player = new Player()
@@ -78,13 +103,11 @@ player.handleInput();
 // This listens for key presses and sends the keys to your
 // Player.handleInput() method. You don't need to modify this.
 document.addEventListener('keyup', function(e) {
-    console.log("I am at the beginning of addEventListener")
     var allowedKeys = {
         37: 'left',
         38: 'up',
         39: 'right',
         40: 'down'
     };
-    console.log("I am at the end of addEventListener")
     player.handleInput(allowedKeys[e.keyCode]);
 });

@@ -80,7 +80,7 @@ var Engine = (function(global) {
      */
     function update(dt) {
         updateEntities(dt);
-        // checkCollisions();
+         checkCollisions();
     }
 
     /* This is called by the update function and loops through all of the
@@ -90,6 +90,32 @@ var Engine = (function(global) {
      * the data/properties related to the object. Do your drawing in your
      * render methods.
      */
+    function checkCollisions(){
+        dist_collision = Math.abs(-5);
+        dist_x_player_enemy = []
+;
+
+        //we need to detect collision between any of the enemies
+        //so we calculate the x distance between the player and each enemy
+        for (i = 0; i < allEnemies.length; i++) {
+            dist_x_player_enemy[i] = Math.abs(allEnemies[i].x- player.x);
+
+            if (dist_x_player_enemy[i] <= dist_collision){
+                reset();
+            }
+        }
+
+
+        //console.log("dist_x is", dist_x);
+        //console.log("dist_y is", dist_y);
+        //if (enemy2.y == player.y && enemy2.x == player.x){
+        //if (dist_x <= dist_collision &&dist_y<=dist_collision){
+        /*if (dist_x <= dist_collision){
+            console.log("There is a collision")
+            //alert("There has been a collision")
+            reset()
+        }*/
+    }
     function updateEntities(dt) {
         allEnemies.forEach(function(enemy) {
             enemy.update(dt);
@@ -161,6 +187,9 @@ var Engine = (function(global) {
      */
     function reset() {
         // noop
+        //player.update(200, 400)
+        player.x = 200;
+        player.y = 400;
     }
 
     /* Go ahead and load all of the images we know we're going to need to
