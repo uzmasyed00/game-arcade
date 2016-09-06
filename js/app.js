@@ -31,7 +31,7 @@ Enemy.prototype.render = function() {
 // Now instantiate your objects.
 // Place all enemy objects in an array called allEnemies
 var enemy1 = new Enemy(0,0, 25)
-var enemy2 = new Enemy(50,100, 2)
+var enemy2 = new Enemy(50,100, 25)
 var allEnemies = [enemy1, enemy2]
 
 var Player = function(){
