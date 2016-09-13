@@ -97,13 +97,25 @@ var Engine = (function(global) {
 
         //we need to detect collision between any of the enemies
         //so we calculate the x distance between the player and each enemy
-        for (i = 0; i < allEnemies.length; i++) {
+        /*for (i = 0; i < allEnemies.length; i++) {
             dist_x_player_enemy[i] = Math.abs(allEnemies[i].x- player.x);
 
             if (dist_x_player_enemy[i] <= dist_collision){
                 reset();
             }
+        }*/
+
+        for (i = 0; i < allEnemies.length; i++) {
+            if (allEnemies[i].x < player.x + 101 &&
+                allEnemies[i].x + 101 > player.x &&
+                allEnemies[i].y < player.y + 171 &&
+                171 + allEnemies[i].y > player.y) {
+                // collision detected!
+                reset();
+            }
         }
+
+
 
 
         //console.log("dist_x is", dist_x);
